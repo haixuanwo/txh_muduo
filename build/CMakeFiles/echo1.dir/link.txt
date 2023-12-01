@@ -1,0 +1,1 @@
+g++ -g -Wall -Wextra -Werror -Wconversion -Wno-unused-parameter -Wold-style-cast -Woverloaded-virtual -Wpointer-arith -Wshadow -Wwrite-strings -march=native -rdynamic -O0 -rdynamic CMakeFiles/echo1.dir/examples/01_simple/01_echo/echo.cc.o CMakeFiles/echo1.dir/examples/01_simple/01_echo/main.cc.o -o bin/echo1  ../lib/libmuduo_net.a ../lib/libmuduo_base.a -lpthread -lrt 
