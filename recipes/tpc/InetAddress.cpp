@@ -3,7 +3,7 @@
  * @Email: haixuanwoTxh@gmail.com
  * @Date: 2024-05-22 21:34:35
  * @LastEditors: Clark
- * @LastEditTime: 2024-05-23 15:22:57
+ * @LastEditTime: 2024-05-23 23:25:32
  * @Description: file content
  */
 
@@ -12,10 +12,15 @@
 #include <string.h>
 #include <strings.h>
 #include <arpa/inet.h>
+#include <iostream>
 
 InetAddress::InetAddress(StringArg ip, uint16_t port)
 {
-
+    ::bzero(&saddr_, sizeof(saddr_));
+    saddr_.sin_family = AF_INET;
+    saddr_.sin_port = htons(port);
+    inet_pton(AF_INET, ip.c_str(), &saddr_.sin_addr);
+    std::cout << "InetAddress success IP: " << ip.c_str() << "port: " << port << std::endl;
 }
 
 InetAddress::InetAddress(StringArg ipPort)
@@ -29,6 +34,7 @@ InetAddress::InetAddress(uint16_t port, bool loopbackonly)
     saddr_.sin_family = AF_INET;
     saddr_.sin_port = htons(port);
     saddr_.sin_addr.s_addr = htonl(loopbackonly ? INADDR_LOOPBACK : INADDR_ANY);
+    std::cout << "InetAddress success port: "<< port << std::endl;
 }
 
 std::string InetAddress::toIp() const

@@ -8,7 +8,11 @@
 int main()
 {
     Socket sock(Socket::createTCP());
-    sock.connect(InetAddress("127.0.0.1", 8080));
+    if (sock.connect(InetAddress("127.0.0.1", 8888)) <0)
+    {
+        std::cout << "T --- connect --- fail" << std::endl;
+        return -1;
+    }
 
     std::cout << "-------- client -----" << std::endl;
 

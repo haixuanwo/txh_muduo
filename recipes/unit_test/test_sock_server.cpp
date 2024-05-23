@@ -1,3 +1,11 @@
+/*
+ * @Author: Clark
+ * @Email: haixuanwoTxh@gmail.com
+ * @Date: 2024-05-23 22:56:39
+ * @LastEditors: Clark
+ * @LastEditTime: 2024-05-23 23:22:05
+ * @Description: file content
+ */
 
 #include "../tpc/Socket.h"
 #include "../tpc/InetAddress.h"
@@ -7,7 +15,8 @@
 int main()
 {
     Socket sock(Socket::createTCP());
-    sock.bindOrDie(InetAddress(8080, false));
+    // sock.setReuseAddr(true);
+    sock.bindOrDie(InetAddress(8888, false));
     sock.listenOrDie();
 
     int clientfd = sock.acceptOrDie();

@@ -49,6 +49,7 @@ void Socket::bindOrDie(const InetAddress& addr)
         perror("bind");
         abort();
     }
+    std::cout << "bind success" << std::endl;
 }
 
 void Socket::listenOrDie()
@@ -59,10 +60,12 @@ void Socket::listenOrDie()
         perror("listen");
         abort();
     }
+    std::cout << "listen success" << std::endl;
 }
 
 int Socket::acceptOrDie()
 {
+    std::cout << "block accept" << std::endl;
     return ::accept(sockfd_, nullptr, nullptr);
 }
 
