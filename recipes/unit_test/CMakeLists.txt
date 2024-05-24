@@ -32,6 +32,11 @@ target_link_libraries(streamClient)
 add_executable(streamServer 02_Acceptor_TcpStream/test_stream_server.cpp ../tpc/Acceptor.cpp ../tpc/TcpStream.cpp ../tpc/Socket.cpp ../tpc/InetAddress.cpp)
 target_link_libraries(streamServer)
 
+# 3 chargen
+add_executable(chargen ../tpc/chargen.cpp ../datetime/Timestamp.cpp ../tpc/Acceptor.cpp ../tpc/TcpStream.cpp ../tpc/Socket.cpp ../tpc/InetAddress.cpp)
+target_link_libraries(chargen)
+
+
 # add_executable(main_test1 main_test.cpp src/sum_integers.cpp)
 # target_link_libraries(main_test1 gtest_main gtest)
 
