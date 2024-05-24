@@ -4,17 +4,18 @@
  # @Email: haixuanwoTxh@gmail.com
  # @Date: 2024-05-22 21:34:09
  # @LastEditors: Clark
- # @LastEditTime: 2024-05-23 10:18:17
+ # @LastEditTime: 2024-05-24 13:03:05
  # @Description: file content
 ###
 
 # Require gcc 4.7+
 
-SRCS="Acceptor.cc InetAddress.cc TcpStream.cc Socket.cc"
+SRCS="Socket.cpp Acceptor.cpp InetAddress.cpp TcpStream.cpp"
 
 set -x
 CC=${CC:-g++}
 
+$CC -std=c++11 -Wall -Wextra -g -O2 $SRCS test.cpp -lpthread
 
 
 # $CC -std=c++11 -Wall -Wextra -g -O2 $SRCS chargen.cc ../datetime/Timestamp.cc -o chargen -lpthread

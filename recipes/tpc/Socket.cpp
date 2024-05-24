@@ -98,7 +98,7 @@ void Socket::setTcpNoDelay(bool on)
     }
 }
 
-InetAddress Socket::getLocalAddre() const
+InetAddress Socket::getLocalAddress() const
 {
     struct sockaddr_in localaddr;
     bzero(&localaddr, sizeof localaddr);
@@ -110,7 +110,7 @@ InetAddress Socket::getLocalAddre() const
     return InetAddress(localaddr);
 }
 
-InetAddress Socket::getPeerAddre() const
+InetAddress Socket::getPeerAddress() const
 {
     struct sockaddr_in peeraddr;
     bzero(&peeraddr, sizeof peeraddr);
@@ -129,7 +129,6 @@ int Socket::read(void *buf, int len)
 
 int Socket::write(const void *buf, int len)
 {
-    std::cout << "Socket::write fd=" << sockfd_ << " len=" << len << std::endl;
     return ::write(sockfd_, buf, len);
 }
 

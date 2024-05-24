@@ -1,5 +1,11 @@
-
-
+/*
+ * @Author: Clark
+ * @Email: haixuanwoTxh@gmail.com
+ * @Date: 2024-05-23 10:01:32
+ * @LastEditors: Clark
+ * @LastEditTime: 2024-05-24 14:35:48
+ * @Description: file content
+ */
 #pragma once
 
 #include "Common.h"
@@ -42,8 +48,8 @@ public:
     void setReuseAddr(bool on);
     void setTcpNoDelay(bool on);
 
-    InetAddress getLocalAddre() const;
-    InetAddress getPeerAddre() const;
+    InetAddress getLocalAddress() const;
+    InetAddress getPeerAddress() const;
 
     int read(void *buf, int len);
     int write(const void *buf, int len);

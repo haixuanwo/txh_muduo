@@ -14,20 +14,26 @@ set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS ON)
 # add_library(sum_integers sum_integers.cpp)
 
 # 添加头文件目录
-include_directories(../tpc/include)
+include_directories(../tpc)
 
 link_directories(lib)
 
-# 可执行文件
-add_executable(client test_sock_client.cpp ../tpc/Socket.cpp ../tpc/InetAddress.cpp)
-target_link_libraries(client)
+# 01_Socket_InetAddress
+add_executable(sockClient 01_Socket_InetAddress/test_sock_client.cpp ../tpc/Socket.cpp ../tpc/InetAddress.cpp)
+target_link_libraries(sockClient)
 
-add_executable(server test_sock_server.cpp ../tpc/Socket.cpp ../tpc/InetAddress.cpp)
-target_link_libraries(server)
+add_executable(sockServer 01_Socket_InetAddress/test_sock_server.cpp ../tpc/Socket.cpp ../tpc/InetAddress.cpp)
+target_link_libraries(sockServer)
+
+# 02_Acceptor_TcpStream
+add_executable(streamClient 02_Acceptor_TcpStream/test_stream_client.cpp ../tpc/Socket.cpp ../tpc/Acceptor.cpp ../tpc/TcpStream.cpp  ../tpc/InetAddress.cpp)
+target_link_libraries(streamClient)
+
+add_executable(streamServer 02_Acceptor_TcpStream/test_stream_server.cpp ../tpc/Acceptor.cpp ../tpc/TcpStream.cpp ../tpc/Socket.cpp ../tpc/InetAddress.cpp)
+target_link_libraries(streamServer)
 
 # add_executable(main_test1 main_test.cpp src/sum_integers.cpp)
 # target_link_libraries(main_test1 gtest_main gtest)
-
 
 # 使能单元测试
 # enable_testing()
