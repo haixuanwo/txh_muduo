@@ -5,6 +5,7 @@ project(recipes LANGUAGES CXX)
 
 # require C++11
 set(CMAKE_CXX_STANDARD 11)
+# set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_EXTENSIONS OFF)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
@@ -34,15 +35,15 @@ target_link_libraries(streamServer)
 
 # 3 chargen
 add_executable(chargen ../tpc/chargen.cpp ../datetime/Timestamp.cpp ../tpc/Acceptor.cpp ../tpc/TcpStream.cpp ../tpc/Socket.cpp ../tpc/InetAddress.cpp)
-target_link_libraries(chargen)
+target_link_libraries(chargen PRIVATE pthread)
 
 # 4 discard
 add_executable(discard ../tpc/discard.cpp ../datetime/Timestamp.cpp ../tpc/Acceptor.cpp ../tpc/TcpStream.cpp ../tpc/Socket.cpp ../tpc/InetAddress.cpp)
-target_link_libraries(discard)
+target_link_libraries(discard PRIVATE pthread)
 
 # 5 echo
 add_executable(echo ../tpc/echo.cpp ../datetime/Timestamp.cpp ../tpc/Acceptor.cpp ../tpc/TcpStream.cpp ../tpc/Socket.cpp ../tpc/InetAddress.cpp)
-target_link_libraries(echo)
+target_link_libraries(echo PRIVATE pthread)
 
 add_executable(echo_client ../tpc/echo_client.cpp ../datetime/Timestamp.cpp ../tpc/Acceptor.cpp ../tpc/TcpStream.cpp ../tpc/Socket.cpp ../tpc/InetAddress.cpp)
 target_link_libraries(echo_client)

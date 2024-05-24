@@ -3,7 +3,7 @@
  * @Email: haixuanwoTxh@gmail.com
  * @Date: 2024-05-24 15:00:37
  * @LastEditors: Clark
- * @LastEditTime: 2024-05-24 21:22:35
+ * @LastEditTime: 2024-05-24 22:37:03
  * @Description: file content
  */
 #include "InetAddress.h"
@@ -18,6 +18,8 @@ int main(int argc, char* argv[])
         printf("Usage: %s hostname message_len [scp]\n", argv[0]);
         return -1;
     }
+
+    const int len = atoi(argv[2]);
 
     InetAddress addr(3007);
     if (!InetAddress::resolve(argv[1], &addr))
@@ -34,7 +36,11 @@ int main(int argc, char* argv[])
         return -1;
     }
 
-    printf("connected to %s, sending message bytes\n", addr.toIpPort().c_str());
+    printf("connected to %s, sending message %d bytes\n", addr.toIpPort().c_str(), len);
+    std::string message(len, 'S');
+    int nw = stream->sendAll(message.c_str(), message.size());
+    printf("sent %d bytes\n", nw);
+
     if (argc > 3)
     {
         for (char cmd : std::string(argv[3]))

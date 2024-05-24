@@ -3,7 +3,7 @@
  * @Email: haixuanwoTxh@gmail.com
  * @Date: 2024-05-24 15:00:37
  * @LastEditors: Clark
- * @LastEditTime: 2024-05-24 20:36:46
+ * @LastEditTime: 2024-05-24 22:41:54
  * @Description: file content
  */
 #include "Acceptor.h"
@@ -31,7 +31,8 @@ int main(int argc, char* argv[])
             tcpStream->setTcpNoDelay(true);
         }
 
-        std::thread thr([count] (TcpStreamPtr stream) {
+        // C++11 doesn't allow capturing unique_ptr in lambda, C++14 allows.
+        std::thread thr([count] (TcpStreamPtr&& stream) {
             printf("thread for no. %d client started\n", count);
             char buffer[4096];
             int nr = 0;
