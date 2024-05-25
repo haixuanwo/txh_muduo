@@ -11,6 +11,8 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS ON)
 
+find_package(Boost COMPONENTS program_options REQUIRED)
+
 # example library
 # add_library(sum_integers sum_integers.cpp)
 
@@ -58,6 +60,19 @@ target_link_libraries(nodelay PRIVATE pthread)
 
 add_executable(nodelay_server ../tpc/nodelay_server.cpp ../datetime/Timestamp.cpp ../tpc/Acceptor.cpp ../tpc/TcpStream.cpp ../tpc/Socket.cpp ../tpc/InetAddress.cpp ../tpc/Common.cpp)
 target_link_libraries(nodelay_server PRIVATE pthread)
+
+# 8 roundtrip_udp
+add_executable(roundtrip_udp ../tpc/roundtrip_udp.cpp ../datetime/Timestamp.cpp ../tpc/Acceptor.cpp ../tpc/TcpStream.cpp ../tpc/Socket.cpp ../tpc/InetAddress.cpp ../tpc/Common.cpp)
+target_link_libraries(roundtrip_udp PRIVATE pthread)
+
+# 9 roundtrip_udp
+add_executable(sender ../tpc/sender.cpp ../datetime/Timestamp.cpp ../tpc/Acceptor.cpp ../tpc/TcpStream.cpp ../tpc/Socket.cpp ../tpc/InetAddress.cpp ../tpc/Common.cpp)
+target_link_libraries(sender PRIVATE pthread)
+
+# 10 ttcp
+add_executable(ttcp ../tpc/ttcp.cpp ../datetime/Timestamp.cpp ../tpc/Acceptor.cpp ../tpc/TcpStream.cpp ../tpc/Socket.cpp ../tpc/InetAddress.cpp ../tpc/Common.cpp)
+target_link_libraries(ttcp PRIVATE pthread Boost::program_options)
+
 
 # add_executable(main_test1 main_test.cpp src/sum_integers.cpp)
 # target_link_libraries(main_test1 gtest_main gtest)

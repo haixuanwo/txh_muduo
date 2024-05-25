@@ -108,7 +108,7 @@ int main(int argc, char* argv[])
         else
         {
             stream->sendAll(&len, sizeof len);
-            printf("%.6f send head %d bytes\n", now_seconds(), sizeof len);
+            printf("%.6f send head %ld bytes\n", now_seconds(), sizeof len);
             usleep(1000);
             std::string payload(len, 'S');
             int nw = stream->sendAll(payload.data(), payload.size());

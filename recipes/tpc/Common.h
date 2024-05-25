@@ -106,6 +106,11 @@ To implicit_cast(const From& f)
 }
 
 /**
+ * @brief Get current time in us.
+ */
+int64_t now_us();
+
+/**
  * @brief Get current time in seconds.
  */
 double now_seconds();
