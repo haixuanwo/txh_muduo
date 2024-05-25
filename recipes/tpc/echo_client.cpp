@@ -3,7 +3,7 @@
  * @Email: haixuanwoTxh@gmail.com
  * @Date: 2024-05-24 15:00:37
  * @LastEditors: Clark
- * @LastEditTime: 2024-05-24 22:37:03
+ * @LastEditTime: 2024-05-25 09:14:49
  * @Description: file content
  */
 #include "InetAddress.h"
@@ -13,7 +13,7 @@
 
 int main(int argc, char* argv[])
 {
-    if (argc > 3)
+    if (argc < 3)
     {
         printf("Usage: %s hostname message_len [scp]\n", argv[0]);
         return -1;

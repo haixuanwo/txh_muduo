@@ -48,6 +48,17 @@ target_link_libraries(echo PRIVATE pthread)
 add_executable(echo_client ../tpc/echo_client.cpp ../datetime/Timestamp.cpp ../tpc/Acceptor.cpp ../tpc/TcpStream.cpp ../tpc/Socket.cpp ../tpc/InetAddress.cpp)
 target_link_libraries(echo_client)
 
+# 6 netcat
+add_executable(netcat ../tpc/netcat.cpp ../datetime/Timestamp.cpp ../tpc/Acceptor.cpp ../tpc/TcpStream.cpp ../tpc/Socket.cpp ../tpc/InetAddress.cpp)
+target_link_libraries(netcat PRIVATE pthread)
+
+# 7 nodelay
+add_executable(nodelay ../tpc/nodelay.cpp ../datetime/Timestamp.cpp ../tpc/Acceptor.cpp ../tpc/TcpStream.cpp ../tpc/Socket.cpp ../tpc/InetAddress.cpp ../tpc/Common.cpp)
+target_link_libraries(nodelay PRIVATE pthread)
+
+add_executable(nodelay_server ../tpc/nodelay_server.cpp ../datetime/Timestamp.cpp ../tpc/Acceptor.cpp ../tpc/TcpStream.cpp ../tpc/Socket.cpp ../tpc/InetAddress.cpp ../tpc/Common.cpp)
+target_link_libraries(nodelay_server PRIVATE pthread)
+
 # add_executable(main_test1 main_test.cpp src/sum_integers.cpp)
 # target_link_libraries(main_test1 gtest_main gtest)
 

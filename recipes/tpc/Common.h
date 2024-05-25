@@ -3,7 +3,7 @@
  * @Email: haixuanwoTxh@gmail.com
  * @Date: 2024-05-22 21:34:35
  * @LastEditors: Clark
- * @LastEditTime: 2024-05-23 09:55:14
+ * @LastEditTime: 2024-05-25 11:43:45
  * @Description: file content
  */
 
@@ -104,3 +104,8 @@ To implicit_cast(const From& f)
 {
     return f;
 }
+
+/**
+ * @brief Get current time in seconds.
+ */
+double now_seconds();

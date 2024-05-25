@@ -1,9 +1,9 @@
 /*
  * @Author: Clark
  * @Email: haixuanwoTxh@gmail.com
- * @Date: 2024-05-24 15:00:37
+ * @Date: 2024-05-25 09:12:04
  * @LastEditors: Clark
- * @LastEditTime: 2024-05-24 22:41:54
+ * @LastEditTime: 2024-05-25 09:28:16
  * @Description: file content
  */
 #include "Acceptor.h"
@@ -44,6 +44,7 @@ int main(int argc, char* argv[])
                 {
                     break;
                 }
+                printf("received %d bytes from client\n", nr);
 
                 int nw = stream->sendAll(buffer, nr);
                 if (nw < nr)
