@@ -3,7 +3,7 @@
  * @Email: haixuanwoTxh@gmail.com
  * @Date: 2024-05-24 15:00:37
  * @LastEditors: Clark
- * @LastEditTime: 2024-05-24 17:20:11
+ * @LastEditTime: 2024-05-27 15:14:53
  * @Description: file content
  */
 
@@ -43,7 +43,7 @@ std::string Timestamp::toString() const
 
 std::string Timestamp::toFormattedString() const
 {
-    char buf[32] = {0};
+    char buf[64] = {0};
     int64_t seconds = static_cast<time_t>(microSecondsSinceEpoch_ / kMicroSecondsPerSecond);
     int64_t microseconds = static_cast<time_t>(microSecondsSinceEpoch_ % kMicroSecondsPerSecond);
 
