@@ -13,7 +13,7 @@ class TimeZone : public muduo::Copyable
 public:
     explicit TimeZone(const char *zonefile);
 
-    bool valid() const { return tz_!= NULL; }
+    bool valid() const { return data_; }
 
     struct tm localtime(time_t t) const;
     time_t fromLocalTime(const struct tm& tm) const;
