@@ -3,7 +3,7 @@
  * @Email: haixuanwoTxh@gmail.com
  * @Date: 2024-05-27 21:17:48
  * @LastEditors: Clark
- * @LastEditTime: 2024-06-03 22:18:26
+ * @LastEditTime: 2024-07-10 14:39:42
  * @Description: file content
  */
 #include <algorithm>
@@ -320,19 +320,62 @@ time_t TimeZone::fromLocalTime(struct tm* localTime) const
     struct tm tmp = localTime;
     time_t seconds = ::timegm(&tmp);
     detail::Transition sentry(0, seconds, 0);
+    const detail::Localtime* local = findLocaltime(data, sentry, detail::Comp(false));
+
     if (localTime->tm_isdst)
     {
-        struct tm tryT
-        m = toLocalTime(seconds - local->gmtoffset);
-
-
-        const detail::LocalTime* local = findLocaltime(data, localSeconds, detail::Comp(false));
-        if (local)
+        struct tm tryTm = toLocalTime(seconds - local->gmtoffset);
+        if (!tryTm.tm_isdst
+            && tryTm.tm_hour == localTm.tm_hour
+            && tryTm.tm_min == localTm.tm_min)
         {
-            seconds = localSeconds + local->gmtoffset;
+            // FIXME: HACK
+            seconds -= 3600;
         }
     }
 
-    return seconds;
+    return seconds - local->gmtOffset;
 }
 
+struct tm TimeZone::toUtcTime(time_t secondsSinceEpoch, bool yday)
+{
+  struct tm utc = { 0, };
+  utc.tm_zone = "GMT";
+  int seconds = secondsSinceEpoch % kSecondsPerDay;
+  int days = secondsSinceEpoch / kSecondsPerDay;
+  if (seconds < 0)
+  {
+    seconds += kSecondsPerDay;
+    --days;
+  }
+
+  detail::fillHMS(seconds, &utc);
+  Date date(days + Date::kJulianDayOf1970_01_01);
+  Date::YearMonthDay ymd = date.yearMonthDay();
+  utc.tm_year = ymd.year - 1900;
+  utc.tm_mon = ymd.month - 1;
+  utc.tm_mday = ymd.day;
+  utc.tm_wday = date.weekDay();
+
+  if (yday)
+  {
+    Date startOfYear(ymd.year, 1, 1);
+    utc.tm_yday = date.julianDayNumber() - startOfYear.julianDayNumber();
+  }
+  return utc;
+}
+
+time_t TimeZone::fromUtcTime(const struct tm& utc)
+{
+  return fromUtcTime(utc.tm_year + 1900, utc.tm_mon + 1, utc.tm_mday,
+                     utc.tm_hour, utc.tm_min, utc.tm_sec);
+}
+
+time_t TimeZone::fromUtcTime(int year, int month, int day,
+                             int hour, int minute, int seconds)
+{
+  Date date(year, month, day);
+  int secondsInDay = hour * 3600 + minute * 60 + seconds;
+  time_t days = date.julianDayNumber() - Date::kJulianDayOf1970_01_01;
+  return days * kSecondsPerDay + secondsInDay;
+}
