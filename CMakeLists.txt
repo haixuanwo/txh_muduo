@@ -54,65 +54,83 @@ message(STATUS ${muduo_net})
 
 find_package(Boost REQUIRED)
 include_directories(${Boost_INCLUDE_DIRS})
-
 include_directories(${PROJECT_SOURCE_DIR})
 
-add_executable(echo src/echo.cc)
-target_link_libraries(echo ${muduo_net})
-target_link_libraries(echo ${muduo_base})
-target_link_libraries(echo pthread rt)
+add_executable(client examples/02_asio/01_chat/client.cc)
+target_link_libraries(client ${muduo_net} ${muduo_base} pthread rt)
 
-add_executable(echo1
-    examples/01_simple/01_echo/echo.cc
-    examples/01_simple/01_echo/main.cc)
-target_link_libraries(echo1 ${muduo_net})
-target_link_libraries(echo1 ${muduo_base})
-target_link_libraries(echo1 pthread rt)
+add_executable(loadtest examples/02_asio/01_chat/loadtest.cc)
+target_link_libraries(loadtest ${muduo_net} ${muduo_base} pthread rt)
 
-add_executable(discard
-    examples/01_simple/02_discard/discard.cc
-    examples/01_simple/02_discard/main.cc)
-target_link_libraries(discard ${muduo_net})
-target_link_libraries(discard ${muduo_base})
-target_link_libraries(discard pthread rt)
+add_executable(server examples/02_asio/01_chat/server.cc)
+target_link_libraries(server ${muduo_net} ${muduo_base} pthread rt)
 
-add_executable(chargen
-    examples/01_simple/03_chargen/chargen.cc
-    examples/01_simple/03_chargen/main.cc)
-target_link_libraries(chargen ${muduo_net})
-target_link_libraries(chargen ${muduo_base})
-target_link_libraries(chargen pthread rt)
+add_executable(server_threaded examples/02_asio/01_chat/server_threaded.cc)
+target_link_libraries(server_threaded ${muduo_net} ${muduo_base} pthread rt)
 
-add_executable(chargenclient examples/01_simple/04_chargenclient/chargenclient.cc)
-target_link_libraries(chargenclient ${muduo_net})
-target_link_libraries(chargenclient ${muduo_base})
-target_link_libraries(chargenclient pthread rt)
+add_executable(server_threaded_efficient examples/02_asio/01_chat/server_threaded_efficient.cc)
+target_link_libraries(server_threaded_efficient ${muduo_net} ${muduo_base} pthread rt)
 
-add_executable(daytime
-    examples/01_simple/05_daytime/daytime.cc
-    examples/01_simple/05_daytime/main.cc)
-target_link_libraries(daytime ${muduo_net})
-target_link_libraries(daytime ${muduo_base})
-target_link_libraries(daytime pthread rt)
+add_executable(server_threaded_highperformance examples/02_asio/01_chat/server_threaded_highperformance.cc)
+target_link_libraries(server_threaded_highperformance ${muduo_net} ${muduo_base} pthread rt)
 
-add_executable(time
-    examples/01_simple/06_time/time.cc
-    examples/01_simple/06_time/main.cc)
-target_link_libraries(time ${muduo_net})
-target_link_libraries(time ${muduo_base})
-target_link_libraries(time pthread rt)
 
-add_executable(timeclient examples/01_simple/07_timeclient/timeclient.cc)
-target_link_libraries(timeclient ${muduo_net})
-target_link_libraries(timeclient ${muduo_base})
-target_link_libraries(timeclient pthread rt)
+# add_executable(echo src/echo.cc)
+# target_link_libraries(echo ${muduo_net})
+# target_link_libraries(echo ${muduo_base})
+# target_link_libraries(echo pthread rt)
 
-add_executable(allinone examples/01_simple/08_allinone/allinone.cc
-    examples/01_simple/06_time/time.cc
-    examples/01_simple/05_daytime/daytime.cc
-    examples/01_simple/03_chargen/chargen.cc
-    examples/01_simple/02_discard/discard.cc
-    examples/01_simple/01_echo/echo.cc)
-target_link_libraries(allinone ${muduo_net})
-target_link_libraries(allinone ${muduo_base})
-target_link_libraries(allinone pthread rt)
+# add_executable(echo1
+#     examples/01_simple/01_echo/echo.cc
+#     examples/01_simple/01_echo/main.cc)
+# target_link_libraries(echo1 ${muduo_net})
+# target_link_libraries(echo1 ${muduo_base})
+# target_link_libraries(echo1 pthread rt)
+
+# add_executable(discard
+#     examples/01_simple/02_discard/discard.cc
+#     examples/01_simple/02_discard/main.cc)
+# target_link_libraries(discard ${muduo_net})
+# target_link_libraries(discard ${muduo_base})
+# target_link_libraries(discard pthread rt)
+
+# add_executable(chargen
+#     examples/01_simple/03_chargen/chargen.cc
+#     examples/01_simple/03_chargen/main.cc)
+# target_link_libraries(chargen ${muduo_net})
+# target_link_libraries(chargen ${muduo_base})
+# target_link_libraries(chargen pthread rt)
+
+# add_executable(chargenclient examples/01_simple/04_chargenclient/chargenclient.cc)
+# target_link_libraries(chargenclient ${muduo_net})
+# target_link_libraries(chargenclient ${muduo_base})
+# target_link_libraries(chargenclient pthread rt)
+
+# add_executable(daytime
+#     examples/01_simple/05_daytime/daytime.cc
+#     examples/01_simple/05_daytime/main.cc)
+# target_link_libraries(daytime ${muduo_net})
+# target_link_libraries(daytime ${muduo_base})
+# target_link_libraries(daytime pthread rt)
+
+# add_executable(time
+#     examples/01_simple/06_time/time.cc
+#     examples/01_simple/06_time/main.cc)
+# target_link_libraries(time ${muduo_net})
+# target_link_libraries(time ${muduo_base})
+# target_link_libraries(time pthread rt)
+
+# add_executable(timeclient examples/01_simple/07_timeclient/timeclient.cc)
+# target_link_libraries(timeclient ${muduo_net})
+# target_link_libraries(timeclient ${muduo_base})
+# target_link_libraries(timeclient pthread rt)
+
+# add_executable(allinone examples/01_simple/08_allinone/allinone.cc
+#     examples/01_simple/06_time/time.cc
+#     examples/01_simple/05_daytime/daytime.cc
+#     examples/01_simple/03_chargen/chargen.cc
+#     examples/01_simple/02_discard/discard.cc
+#     examples/01_simple/01_echo/echo.cc)
+# target_link_libraries(allinone ${muduo_net})
+# target_link_libraries(allinone ${muduo_base})
+# target_link_libraries(allinone pthread rt)
