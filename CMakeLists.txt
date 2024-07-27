@@ -49,8 +49,10 @@ message(STATUS ${Muduo_LIBRARY_DIR})
 include_directories(${Muduo_INCLUDE_DIR})
 find_library(muduo_base muduo_base)
 find_library(muduo_net muduo_net)
+find_library(muduo_inspect muduo_inspect)
 message(STATUS ${muduo_base})
 message(STATUS ${muduo_net})
+message(STATUS ${muduo_inspect})
 
 find_package(Boost REQUIRED)
 include_directories(${Boost_INCLUDE_DIRS})
@@ -73,6 +75,19 @@ target_link_libraries(server_threaded_efficient ${muduo_net} ${muduo_base} pthre
 
 add_executable(server_threaded_highperformance examples/02_asio/01_chat/server_threaded_highperformance.cc)
 target_link_libraries(server_threaded_highperformance ${muduo_net} ${muduo_base} pthread rt)
+
+# hub
+# add_executable(hub examples/03_hub/hub.cc examples/03_hub/codec.cc)
+# target_link_libraries(hub muduo_inspect  pthread rt)
+
+# add_library(muduo_pubsub examples/03_hub/pub.cc examples/03_hub/codec.cc)
+# target_link_libraries(muduo_pubsub ${muduo_net})
+
+# add_executable(pub examples/03_hub/pub.cc)
+# target_link_libraries(pub muduo_pubsub)
+
+# add_executable(sub examples/03_hub/sub.cc)
+# target_link_libraries(sub muduo_pubsub)
 
 
 # add_executable(echo src/echo.cc)
