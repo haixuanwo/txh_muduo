@@ -21,18 +21,19 @@ ParseResult pubsub::parseMessage(Buffer* buf,
   const char* crlf = buf->findCRLF();
   if (crlf)
   {
-    const char* space = std::find(buf->peek(), crlf, ' ');
+    const char* space = std::find(buf->peek(), crlf, ' '); // 跳过空格
     if (space != crlf)
     {
-      cmd->assign(buf->peek(), space);
-      topic->assign(space+1, crlf);
+      cmd->assign(buf->peek(), space);  // 解析到cmd字段
+      topic->assign(space+1, crlf);     // 解析到主题字段
+
       if (*cmd == "pub")
       {
         const char* start = crlf + 2;
         crlf = buf->findCRLF(start);
         if (crlf)
         {
-          content->assign(start, crlf);
+          content->assign(start, crlf); // 解析到要发布的数据内容
           buf->retrieveUntil(crlf+2);
           result = kSuccess;
         }
@@ -43,18 +44,18 @@ ParseResult pubsub::parseMessage(Buffer* buf,
       }
       else
       {
-        buf->retrieveUntil(crlf+2);
+        buf->retrieveUntil(crlf+2);      // 丢弃换行符与之后的两个字节
         result = kSuccess;
       }
     }
     else
     {
-      result = kError;
+      result = kError; // 无内容数据
     }
   }
   else
   {
-    result = kContinue;
+    result = kContinue; // 数据未收完整，未收到数据结束换行符\n
   }
   return result;
 }

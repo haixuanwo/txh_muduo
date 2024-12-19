@@ -1,5 +1,5 @@
-#ifndef MUDUO_EXAMPLES_ASIO_CHAT_CODEC_H
-#define MUDUO_EXAMPLES_ASIO_CHAT_CODEC_H
+
+#pragma once
 
 #include "muduo/base/Logging.h"
 #include "muduo/net/Buffer.h"
@@ -27,18 +27,18 @@ class LengthHeaderCodec : muduo::noncopyable
       // FIXME: use Buffer::peekInt32()
       const void* data = buf->peek();
       int32_t be32 = *static_cast<const int32_t*>(data); // SIGBUS
-      const int32_t len = muduo::net::sockets::networkToHost32(be32);
+      const int32_t len = muduo::net::sockets::networkToHost32(be32); // 转换网络字节序为主机字节序
       if (len > 65536 || len < 0)
       {
         LOG_ERROR << "Invalid length " << len;
         conn->shutdown();  // FIXME: disable reading
         break;
       }
-      else if (buf->readableBytes() >= len + kHeaderLen)
+      else if (buf->readableBytes() >= len + kHeaderLen)              // 判断数据是否接受完整
       {
         buf->retrieve(kHeaderLen);
         muduo::string message(buf->peek(), len);
-        messageCallback_(conn, message, receiveTime);
+        messageCallback_(conn, message, receiveTime);                 // 执行回调函数
         buf->retrieve(len);
       }
       else
@@ -53,10 +53,10 @@ class LengthHeaderCodec : muduo::noncopyable
             const muduo::StringPiece& message)
   {
     muduo::net::Buffer buf;
-    buf.append(message.data(), message.size());
+    buf.append(message.data(), message.size());               // 数据
     int32_t len = static_cast<int32_t>(message.size());
     int32_t be32 = muduo::net::sockets::hostToNetwork32(len);
-    buf.prepend(&be32, sizeof be32);
+    buf.prepend(&be32, sizeof be32);                          // 数据头，数据长度4字节
     conn->send(&buf);
   }
 
@@ -64,5 +64,3 @@ class LengthHeaderCodec : muduo::noncopyable
   StringMessageCallback messageCallback_;
   const static size_t kHeaderLen = sizeof(int32_t);
 };
-
-#endif  // MUDUO_EXAMPLES_ASIO_CHAT_CODEC_H
